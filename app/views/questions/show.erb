@@ -1,13 +1,15 @@
 <h2><%= @question.title %></h2>
 <p><%= @question.body %></p>
 
-<% if logged_in? %>
-<% end %>
 <ul><% @question.comments.each do |comment| %>
   <li><%= comment.body %></li>
   <% end %>
 </ul>
-<!-- enter add comment to Question partial here -->
+
+<% if logged_in? %>
+  <%= erb :'partials/_add_comment' %>
+<% end %>
+
 <h3>Answers:</h3>
 <ul><% @question.answers.each do |answer| %>
   <li><%= answer.body %>
@@ -16,10 +18,18 @@
         <li><%= comment.body %></li>
       <% end %>
     </ul>
-<!-- enter add comment to Answer partial here -->
+
+    <% if logged_in? %>
+      <%= erb :'partials/_add_comment' %>
+    <% end %>
+
   </li>
   <% end %>
 </ul>
-<!-- enter add answer partial here -->
+
+<% if logged_in? %>
+  <%= erb :'partials/_add_answer' %>
+<% end %>
+
 
 
