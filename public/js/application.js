@@ -13,6 +13,7 @@ var loginHandler = function(event) {
   event.preventDefault();
   var $this = $(this)
   var data = $this.serialize()
+  console.log($(data))
   var ajaxPromise = $.ajax({
     url: '/sessions',
     method: 'POST',
@@ -23,7 +24,7 @@ var loginHandler = function(event) {
     console.log("success");
     $this.hide();
     $(".logged-out").hide();
-    $(".logged-in li").first().text(data.username).show();
+    $(".logged-in li").first().text(data.username)
     $(".logged-in").show();
   })
 
