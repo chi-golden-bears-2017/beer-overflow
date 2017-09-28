@@ -22,6 +22,7 @@
     <nav>
       <h1><a href="/">Beer Overflow</a></h1>
       <ul>
+        <%= erb :'_logout_button' %>
         <% if logged_in? %>
         <li>Hello, <%= current_user.username %></li>
         <li><form method="POST" action="/sessions">
@@ -29,7 +30,9 @@
               <input type="submit" class="button" value="Logout" />
             </form>
         </li>
+      </ul>
         <% else %>
+      <ul class="logged-out">
         <li><a id="login-button" href="/sessions/new">Login</a></li>
         <li><a href="/users/new">Sign Up</a></li>
         <li><%= erb :'session/_login_form' %></li>

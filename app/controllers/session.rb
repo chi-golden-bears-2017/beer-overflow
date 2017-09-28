@@ -3,7 +3,6 @@ get '/sessions/new' do
 end
 
 post '/sessions' do
-  p request
   @user = User.find_by(username: params[:username])
 
   if @user && @user.authenticate(params[:password])

@@ -1,5 +1,4 @@
 $(document).ready(function() {
-  console.log('document.ready fired')
   $("#login-button").on('click', showForm);
   $("#login-form").on('submit', loginHandler);
 });
@@ -13,9 +12,7 @@ var showForm = function(event) {
 var loginHandler = function(event) {
   event.preventDefault();
   var $this = $(this)
-  console.log(this)
-  var data = $(this).serialize()
-  console.log($(this).serialize())
+  var data = $this.serialize()
   var ajaxPromise = $.ajax({
     url: '/sessions',
     method: 'POST',
@@ -24,9 +21,12 @@ var loginHandler = function(event) {
 
   ajaxPromise.done(function() {
     console.log("success");
-    // hide form
-    // hide login and sign up buttons
-    // show username and logout buttons
+    $this.hide();
+    $(".logged-out").hide();
+    $(".logged-in li").first().text("current_user.username").show();
+    $(".logged-in").show();
+
+    // show username
   })
 
 };
