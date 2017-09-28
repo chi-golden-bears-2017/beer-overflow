@@ -1,9 +1,6 @@
 <% @questions.each do |question| %>
-
 <ul>
-  <li><a href="/"><%= question.title %> asked by <%= question.user.username %> on <%= question.created_at.strftime("%F") %></a></li>
+  <li><a href="/"><%= question.title %></a> <%= question.votes.count %> votes<br>
+    asked by <%= question.user.username %> on <%= question.created_at.strftime("%F") %></li>
 </ul>
-
-
-
 <% end %>
