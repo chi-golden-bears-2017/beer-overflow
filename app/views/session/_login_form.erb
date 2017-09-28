@@ -1,0 +1,9 @@
+
+<form id="login-form" hidden="true" method="POST" action="/sessions">
+  <% if @message %>
+  <p><%= @message %></p>
+  <% end %>
+  <input type="text" name="username" placeholder="Username">
+  <input type="password" name="password" placeholder="Password">
+  <input type="submit">
+</form>

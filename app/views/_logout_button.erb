@@ -1,0 +1,8 @@
+<ul  class="logged-in" hidden="true">
+  <li>Hello, <%= "username" %></li>
+  <li><form method="POST" action="/sessions">
+        <input type="hidden" name="_method" value="DELETE" />
+        <input type="submit" class="button" value="Logout" />
+      </form>
+  </li>
+</ul>
