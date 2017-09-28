@@ -3,11 +3,15 @@ get '/sessions/new' do
 end
 
 post '/sessions' do
+  p request
   @user = User.find_by(username: params[:username])
 
   if @user && @user.authenticate(params[:password])
     session[:user_id] = @user.id
-    redirect '/'
+
+    p !request.xhr?
+    redirect '/' if !request.xhr?
+
   else
     @message = "Either you username or password was wrong"
     erb :"session/new"
