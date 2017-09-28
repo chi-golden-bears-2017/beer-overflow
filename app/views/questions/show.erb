@@ -1,6 +1,25 @@
-<% @questions.each do |question| %>
-<ul>
-  <li><a href="/"><%= question.title %></a> <%= question.votes.count %> votes<br>
-    asked by <%= question.user.username %> on <%= question.created_at.strftime("%F") %></li>
-</ul>
+<h2><%= @question.title %></h2>
+<p><%= @question.body %></p>
+
+<% if logged_in? %>
 <% end %>
+<ul><% @question.comments.each do |comment| %>
+  <li><%= comment.body %></li>
+  <% end %>
+</ul>
+<!-- enter add comment to Question partial here -->
+<h3>Answers:</h3>
+<ul><% @question.answers.each do |answer| %>
+  <li><%= answer.body %>
+    <ul>
+      <% answer.comments.each do |comment| %>
+        <li><%= comment.body %></li>
+      <% end %>
+    </ul>
+<!-- enter add comment to Answer partial here -->
+  </li>
+  <% end %>
+</ul>
+<!-- enter add answer partial here -->
+
+
