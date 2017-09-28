@@ -23,10 +23,8 @@ var loginHandler = function(event) {
     console.log("success");
     $this.hide();
     $(".logged-out").hide();
-    $(".logged-in li").first().text("current_user.username").show();
+    $(".logged-in li").first().text(data.username).show();
     $(".logged-in").show();
-
-    // show username
   })
 
 };
