@@ -9,14 +9,21 @@ get '/questions/:id' do
 end
 
 post '/questions/:id/votes' do
-  p params[:value]
+  # p params[:value]
   @question = Question.find(params[:id])
-  @vote = Vote.new(
-    value: params[:value],
-    user_id: current_user.id,
-    votable: @question)
-  p @vote.save
-  p @vote
-    @vote_count = @question.vote_count.to_s
+  if voted?(@question)
+    p "HEY! NO VOTING TWICE!"
+  else
+    @vote = Vote.create(
+      value: params[:value],
+      user_id: current_user.id,
+      votable: @question)
+    p @vote
+      @vote_count = @question.vote_count.to_s
   # erb :'questions/show'
+  end
 end
+
+
+
+
