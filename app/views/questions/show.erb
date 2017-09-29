@@ -1,6 +1,12 @@
-<h2><%= @question.title %></h2>
+<% if logged_in? %>
+  <button type="button">Upvote</button>
+  <button type="button">Downvote</button>
+<% end %>
+
+<h2>Question: <%= @question.title %></h2>
 <p><%= @question.body %></p>
 
+<h4>Comments:</h4>
 <ul><% @question.comments.each do |comment| %>
   <li><%= comment.body %></li>
   <% end %>
@@ -13,6 +19,7 @@
 <h3>Answers:</h3>
 <ul><% @question.answers.each do |answer| %>
   <li><%= answer.body %>
+    <h4>Comments:</h4>
     <ul>
       <% answer.comments.each do |comment| %>
         <li><%= comment.body %></li>
