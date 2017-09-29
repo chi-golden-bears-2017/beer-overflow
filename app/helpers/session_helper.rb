@@ -17,3 +17,7 @@ end
 def authorized?(user)
   current_user == user
 end
+
+def voted?(votable)
+  Vote.where({user_id: current_user.id, votable: votable}).length > 0
+end
