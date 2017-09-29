@@ -1,8 +1,16 @@
 <% if logged_in? %>
 <div class="vote-buttons" id="question">
   <p>Total votes: <%= @question.vote_count %></p>
-  <button type="button" class="up-vote">Upvote</button>
-  <button type="button" class="down-vote">Downvote</button>
+  <form method="post" action="/questions/<%= @question.id %>/votes">
+    <input type="hidden" name="value" value="1">
+    <input type="submit" class="up-vote" value="Upvote">
+  </form>
+
+  <form method="post" action="/questions/<%= @question.id %>/votes">
+    <input type="hidden" name="value" value="-1">
+    <input type="submit" class="down-vote" value="Downvote">
+  </form>
+
 </div>
 <% end %>
 
@@ -24,8 +32,15 @@
   <% if logged_in? %>
   <div class="vote-buttons" id="<%= answer.id %>">
     <p>Total votes: <%= answer.vote_count %></p>
-    <button type="button" class="up-vote">Upvote</button>
-    <button type="button" class="down-vote">Downvote</button>
+    <form method="post" action="/answers/<%= answer.id %>/votes">
+      <input type="hidden" name="value" value="1">
+      <input type="submit" class="up-vote" value="Upvote">
+    </form>
+    <form method="post" action="/answers/<%= answer.id %>/votes">
+      <input type="hidden" name="value" value="-1">
+      <input type="submit" class="down-vote" value = "Downvote">
+    </form>
+
   </div>
 <% end %>
   <li><%= answer.body %>

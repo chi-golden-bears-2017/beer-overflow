@@ -9,18 +9,23 @@ get '/questions/:id' do
 end
 
 post '/questions/:id/votes' do
-  # p params[:value]
+  p params
   @question = Question.find(params[:id])
   if voted?(@question)
     p "HEY! NO VOTING TWICE!"
   else
     @vote = Vote.create(
-      value: params[:value],
+      value: params[:value].to_i,
       user_id: current_user.id,
       votable: @question)
-    p @vote
-      @vote_count = @question.vote_count.to_s
-  # erb :'questions/show'
+  end
+  if request.xhr?
+    p "xhr"
+    # TODO JSONify
+    @question.vote_count.to_s
+  else
+    p "page reloading"
+    redirect "questions/#{@question.id}"
   end
 end
 

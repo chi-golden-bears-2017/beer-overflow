@@ -42,7 +42,6 @@ var voteHandler = function(event) {
     answerId = $ballot_box.attr('id')
     url = '/answers/' + answerId + '/votes'
   }
-  console.log(url)
   var data;
   if (button.attr('class') === "up-vote"){
     data = {value: 1}

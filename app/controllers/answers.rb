@@ -10,6 +10,13 @@ post '/answers/:id/votes' do
       votable: @answer)
     p @vote
       @vote_count = @answer.vote_count.to_s
-  # erb :'questions/show'
+  end
+  if request.xhr?
+    p "xhr"
+    # TODO JSONify
+    @answer.vote_count.to_s
+  else
+    p "page reloading"
+    redirect "questions/#{@answer.question.id}"
   end
 end
