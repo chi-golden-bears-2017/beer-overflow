@@ -53,16 +53,21 @@ Answer.destroy_all
 end
 
 50.times do
-  temp_comment = {
+  temp_comment_question = {
     body: Faker::Hipster.paragraph,
     user_id: rand(1..20),
     commentable: Question.find(rand(1..20))
   }
+  temp_comment_answer = {
+    body: Faker::Hipster.paragraph,
+    user_id: rand(1..20),
+    commentable: Answer.find(rand(1..20))
+  }
 
-  question_comment = Comment.new(temp_comment)
+  question_comment = Comment.new(temp_comment_question)
   question_comment.save
 
-  answer_comment = Comment.new(temp_comment)
+  answer_comment = Comment.new(temp_comment_answer)
   answer_comment.save
 end
 
