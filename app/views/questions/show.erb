@@ -15,6 +15,7 @@
 <% end %>
 
 <h2 id="<%= @question.id %>">Question: <%= @question.title %></h2>
+<p>posted by: <%= @question.user.username %></p>
 <p><%= @question.body %></p>
 
 <div class="comment-list">
@@ -49,7 +50,10 @@
   <% end %>
 
   <p class="answer"><%= answer.body %>
-    <p>Answer by: <%= answer.user.username %></p>
+    <p>
+      <button class="best">Best Answer!</button>
+      Answer by: <%= answer.user.username %>
+    </p>
       <div class="comment-list">
         <ul>
           <% answer.comments.each do |comment| %>

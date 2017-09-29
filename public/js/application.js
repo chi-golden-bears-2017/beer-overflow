@@ -1,10 +1,9 @@
 $(document).ready(function() {
   $("#login-button").on('click', showForm);
   $("#login-form").on('submit', loginHandler);
-
   $(".new-comment-form").on('submit', newCommentHandler);
-
   $("div.vote-buttons form").on('submit', voteHandler);
+  $(".best").on()
 });
 
 var newCommentHandler = function(event) {
@@ -94,4 +93,8 @@ var voteHandler = function(event) {
     $ballot_box.find("p").text(new_total)
   });
 };
+
+
+// # best answer button on each answer:
+// # when clicked, update db, show all buttons, hide button, show "Best Answer Badge" (visible to all users)
 
