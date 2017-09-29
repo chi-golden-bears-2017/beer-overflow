@@ -20,3 +20,19 @@ post '/answers/:id/votes' do
     redirect "questions/#{@answer.question.id}"
   end
 end
+
+post '/questions/:id/answers/new' do
+  @question = Question.find(params[:id])
+  answer = Answer.new(body: params[:body], user_id: current_user.id, question_id: @question.id)
+
+  if answer.save
+    if request.xhr?
+      answer.body
+    else
+      erb :"questions/show"
+    end
+  else
+    @errors = "Oopsies"
+  end
+
+end

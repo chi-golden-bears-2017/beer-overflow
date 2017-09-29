@@ -5,16 +5,45 @@ $(document).ready(function() {
   $(".new-comment-form").on('submit', newCommentHandler);
 
   $("div.vote-buttons form").on('submit', voteHandler);
+  $("#new-answer").on('submit', answerHandler)
 });
+
+var answerHandler = function(event) {
+  event.preventDefault();
+  $this = $(this)
+
+  var answer = $this.find("textarea[name=body]").val();
+  var url = $this.attr("action");
+  var data = $(this).serialize();
+
+  var request = $.ajax({
+    url: url,
+    method: 'POST',
+    data: data
+  })
+
+  if ($.trim(answer) === "") {
+    event.preventDefault();
+    alert("Cannot submit empty answer.")
+    return false;
+  }
+
+  request.done(function(response) {
+    console.log($("#answer-list > .answer"))
+    $("#answer-list > .answer").append("<p class='answer'>" + response + "</p>")
+  })
+
+  $(".new-comment-form").trigger("reset")
+
+
+};
 
 var newCommentHandler = function(event) {
   event.preventDefault();
-// this is the form
   $this = $(this)
 
   var comment = $this.find("textarea[name=body]").val();
   var url = $this.attr("action")
-  console.log(url)
   var data = $(this).serialize();
   var request = $.ajax({
     url: url,
@@ -27,16 +56,12 @@ var newCommentHandler = function(event) {
     alert("Cannot submit empty comment.")
     return false;
   }
+
   request.done(function(response) {
-    console.log(response)
-
-    // answer comments
     $this.closest(".comment-list").find("ul").append("<li class='comment'>" + response + "</li>")
-
   })
 
   $(".new-comment-form").trigger("reset")
-
 };
 
 var showForm = function(event) {
@@ -88,6 +113,7 @@ var voteHandler = function(event) {
     method: 'POST',
     data: data
   })
+
   ajaxPromise.done(function(response) {
     var new_total = "Total votes: " + response
     console.log(new_total)
