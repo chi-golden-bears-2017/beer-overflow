@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!--
-    normalize.css removes cross-browser differences in defaults, e.g.,
-    differences in how form elements appear between Firefox and IE
-    See: http://necolas.github.com/normalize.css/
-  -->
   <link rel="stylesheet" href="/css/normalize.css">
-  <!--
-    application.css is where you put your styles
-  -->
   <link rel="stylesheet" href="/css/application.css">
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -25,6 +17,7 @@
         <%= erb :'_logout_button' %>
         <% if logged_in? %>
         <li>Hello, <%= current_user.username %></li>
+        <li><a href="/questions/new">New Question</a></li>
         <li><form method="POST" action="/sessions">
               <input type="hidden" name="_method" value="DELETE" />
               <input type="submit" class="button" value="Logout" />

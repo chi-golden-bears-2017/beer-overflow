@@ -83,19 +83,15 @@ var voteHandler = function(event) {
   } else {
     data = {value: -1}
   }
-
   var ajaxPromise = $.ajax({
     url: url,
     method: 'POST',
     data: data
   })
-
-
-
   ajaxPromise.done(function(response) {
     var new_total = "Total votes: " + response
     console.log(new_total)
     $ballot_box.find("p").text(new_total)
-  })
+  });
 };
 
