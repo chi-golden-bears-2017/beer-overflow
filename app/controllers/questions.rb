@@ -17,6 +17,6 @@ post '/questions/:id/votes' do
     votable: @question)
   p @vote.save
   p @vote
-
+    @vote_count = @question.vote_count.to_s
   # erb :'questions/show'
 end

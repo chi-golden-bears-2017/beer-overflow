@@ -5,4 +5,7 @@ class Question < ActiveRecord::Base
   belongs_to :user
   has_one :best_answer, class_name: :Answer
 
+  def vote_count
+    votes.sum(:value)
+  end
 end

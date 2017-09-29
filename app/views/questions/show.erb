@@ -1,5 +1,6 @@
 <% if logged_in? %>
 <div id="vote-buttons">
+  <p>Total votes: <%= @question.vote_count %></p>
   <button type="button" id="up-vote">Upvote</button>
   <button type="button" id="down-vote">Downvote</button>
 </div>

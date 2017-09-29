@@ -49,7 +49,9 @@ var voteHandler = function(event) {
   })
 
   ajaxPromise.done(function(response) {
-    // $this.hide();
+    var new_total = "Total votes: " + response
+    console.log(new_total)
+    $("#vote-buttons p").first().text(new_total)
     // $(".logged-out").hide();
     // $(".logged-in li").first().text("Hello, " + response + "!")
     // $(".logged-in").show();
