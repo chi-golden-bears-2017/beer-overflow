@@ -1,8 +1,8 @@
 <% if logged_in? %>
-<div id="vote-buttons">
+<div class="vote-buttons" id="question">
   <p>Total votes: <%= @question.vote_count %></p>
-  <button type="button" id="up-vote">Upvote</button>
-  <button type="button" id="down-vote">Downvote</button>
+  <button type="button" class="up-vote">Upvote</button>
+  <button type="button" class="down-vote">Downvote</button>
 </div>
 <% end %>
 
@@ -21,6 +21,13 @@
 
 <h3>Answers:</h3>
 <ul><% @question.answers.each do |answer| %>
+  <% if logged_in? %>
+  <div class="vote-buttons" id="<%= answer.id %>">
+    <p>Total votes: <%= answer.vote_count %></p>
+    <button type="button" class="up-vote">Upvote</button>
+    <button type="button" class="down-vote">Downvote</button>
+  </div>
+<% end %>
   <li><%= answer.body %>
     <h4>Comments:</h4>
     <ul>

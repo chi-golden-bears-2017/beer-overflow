@@ -1,7 +1,7 @@
 $(document).ready(function() {
   $("#login-button").on('click', showForm);
   $("#login-form").on('submit', loginHandler);
-  $("#vote-buttons button").on('click', voteHandler);
+  $("div.vote-buttons button").on('click', voteHandler);
 
 });
 
@@ -30,13 +30,21 @@ var loginHandler = function(event) {
 };
 
 var voteHandler = function(event) {
-  // event.preventDefault();
   var button = $(this)
-  console.log(button)
-  var questionId = $('h2').attr('id')
-  var url = '/questions/' + questionId + '/votes'
+  var $ballot_box = button.closest("div")
+  var url;
+  var questionId;
+  var answerId;
+  if ($ballot_box.attr('id') === 'question'){
+    questionId = $('h2').attr('id')
+    url = '/questions/' + questionId + '/votes'
+  } else {
+    answerId = $ballot_box.attr('id')
+    url = '/answers/' + answerId + '/votes'
+  }
+  console.log(url)
   var data;
-  if (button.attr('id') === "up-vote"){
+  if (button.attr('class') === "up-vote"){
     data = {value: 1}
   } else {
     data = {value: -1}
@@ -48,12 +56,11 @@ var voteHandler = function(event) {
     data: data
   })
 
+
+
   ajaxPromise.done(function(response) {
     var new_total = "Total votes: " + response
     console.log(new_total)
-    $("#vote-buttons p").first().text(new_total)
-    // $(".logged-out").hide();
-    // $(".logged-in li").first().text("Hello, " + response + "!")
-    // $(".logged-in").show();
+    $ballot_box.find("p").text(new_total)
   })
 };
