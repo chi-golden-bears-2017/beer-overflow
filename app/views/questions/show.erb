@@ -18,16 +18,11 @@
 <p><%= @question.body %></p>
 
 <div class="comment-list">
+  <h4>Comments:</h4>
   <ul><% @question.comments.each do |comment| %>
     <li class="comment"><%= comment.body %>
     </li>
     <p>Comment by: <%= comment.user.username %></p>
-    <% end %>
-  </ul>
-
-  <h4>Comments:</h4>
-  <ul><% @question.comments.each do |comment| %>
-    <li><%= comment.body %></li>
     <% end %>
   </ul>
 
