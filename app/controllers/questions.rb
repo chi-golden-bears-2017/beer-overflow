@@ -4,13 +4,12 @@ get '/questions' do
 end
 
 get '/questions/new' do
-  p "yay"
+  authenticate!
   erb :'questions/new'
 end
 
 post '/questions/new' do
-  p params
-  "yay!!!!!~~"
+  authenticate!
   @question = Question.create(
       title: params[:title],
       body: params[:body],
