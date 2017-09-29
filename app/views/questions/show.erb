@@ -49,6 +49,7 @@
     </div>
   <% end %>
 
+  <ul>
   <p class="answer"><%= answer.body %>
     <p>
       <button class="best">Best Answer!</button>
@@ -72,11 +73,13 @@
   <% end %>
 </div>
 
-
-<% if logged_in? %>
-  <%= erb :'partials/_add_answer' %>
-<% end %>
-
+<div>
+  <% if logged_in? %>
+  <form id="new-answer" action="/questions/<%= @question.id %>/answers/new" method="post">
+    <%= erb :'partials/_add_answer' %>
+  </form>
+  <% end %>
+</div>
 
 
 
