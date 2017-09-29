@@ -1,9 +1,11 @@
 <% if logged_in? %>
-  <button type="button">Upvote</button>
-  <button type="button">Downvote</button>
+<div id="vote-buttons">
+  <button type="button" id="up-vote">Upvote</button>
+  <button type="button" id="down-vote">Downvote</button>
+</div>
 <% end %>
 
-<h2>Question: <%= @question.title %></h2>
+<h2 id="<%= @question.id %>">Question: <%= @question.title %></h2>
 <p><%= @question.body %></p>
 
 <h4>Comments:</h4>
