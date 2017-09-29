@@ -1,14 +1,14 @@
 <% if logged_in? %>
 <div class="vote-buttons" id="question">
   <p>Total votes: <%= @question.vote_count %></p>
-  <form method="post" action="/questions/<%= @question.id %>/votes">
+  <form method="post" action="/questions/<%= @question.id %>/votes" class="up-vote">
     <input type="hidden" name="value" value="1">
-    <input type="submit" class="up-vote" value="Upvote">
+    <input type="submit" value="Upvote">
   </form>
 
-  <form method="post" action="/questions/<%= @question.id %>/votes">
+  <form method="post" action="/questions/<%= @question.id %>/votes" class="down-vote">
     <input type="hidden" name="value" value="-1">
-    <input type="submit" class="down-vote" value="Downvote">
+    <input type="submit" value="Downvote">
   </form>
 
 </div>
@@ -32,13 +32,13 @@
   <% if logged_in? %>
   <div class="vote-buttons" id="<%= answer.id %>">
     <p>Total votes: <%= answer.vote_count %></p>
-    <form method="post" action="/answers/<%= answer.id %>/votes">
+    <form method="post" action="/answers/<%= answer.id %>/votes" class="up-vote" >
       <input type="hidden" name="value" value="1">
-      <input type="submit" class="up-vote" value="Upvote">
+      <input type="submit" value="Upvote">
     </form>
-    <form method="post" action="/answers/<%= answer.id %>/votes">
+    <form method="post" action="/answers/<%= answer.id %>/votes" class="down-vote">
       <input type="hidden" name="value" value="-1">
-      <input type="submit" class="down-vote" value = "Downvote">
+      <input type="submit" value = "Downvote">
     </form>
 
   </div>

@@ -1,7 +1,7 @@
 $(document).ready(function() {
   $("#login-button").on('click', showForm);
   $("#login-form").on('submit', loginHandler);
-  $("div.vote-buttons button").on('click', voteHandler);
+  $("div.vote-buttons form").on('submit', voteHandler);
 
 });
 
@@ -30,8 +30,9 @@ var loginHandler = function(event) {
 };
 
 var voteHandler = function(event) {
-  var button = $(this)
-  var $ballot_box = button.closest("div")
+  event.preventDefault();
+  var form = $(this)
+  var $ballot_box = form.closest("div")
   var url;
   var questionId;
   var answerId;
@@ -43,7 +44,7 @@ var voteHandler = function(event) {
     url = '/answers/' + answerId + '/votes'
   }
   var data;
-  if (button.attr('class') === "up-vote"){
+  if (form.attr('class') === "up-vote"){
     data = {value: 1}
   } else {
     data = {value: -1}
