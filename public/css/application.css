@@ -36,3 +36,11 @@ nav li {
   text-decoration:underline;
   cursor:pointer;
 }
+
+.answer {
+  color: green;
+}
+
+.comment-list {
+  border: dotted 1px red;
+}
