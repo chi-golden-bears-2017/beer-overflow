@@ -1,5 +1,5 @@
-<p>Total votes: <%= @question.vote_count %></p>
 <div id="please">
+<p class="vote-count">Total votes: <%= @question.vote_count %></p>
 <% if logged_in? %>
   <div class="vote-buttons" id="question">
     <div class="error"></div>

@@ -119,12 +119,8 @@ var voteHandler = function(event) {
   })
 
   ajaxPromise.done(function(response) {
-    console.log(response)
     var new_total = "Total votes: " + response
-    console.log(new_total)
-    console.log(form)
-    console.log($ballot_box.closest('div.answer').find('p.vote-count'));
-    var $voteCount = $ballot_box.closest('div.answer').find('p.vote-count')
+    var $voteCount = $ballot_box.closest('div#please').find('p.vote-count')
     $voteCount.text(new_total)
   });
 
