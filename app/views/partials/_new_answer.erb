@@ -34,12 +34,12 @@
           </li>
         <% end %>
      </ul>
-   </div>
-
    <% if logged_in? %>
       <form action="/answers/<%= answer.id %>/comments/new" method="post" class="new-comment-form">
          <%= erb :'partials/_add_comment' %>
       </form>
     <% end %>
+   </div>
+
   </div>
 
