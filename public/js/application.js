@@ -1,7 +1,7 @@
 $(document).ready(function() {
   $("#login-button").on('click', showForm);
   $("#login-form").on('submit', loginHandler);
-  $(".new-comment-form").on('submit', newCommentHandler);
+  $("div#answer-list").on('submit', ".new-comment-form", newCommentHandler);
   $("#please").on('submit', "div.vote-buttons form", voteHandler);
   $("#please").on('submit', '#new-answer', answerHandler)
   $("div#answer-list").on('click', ".best", bestAnswer)
