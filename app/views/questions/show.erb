@@ -22,8 +22,8 @@
     <h4>Comments:</h4>
     <ul><% @question.comments.each do |comment| %>
       <li class="comment"><%= comment.body %>
+        <p>Comment by: <%= comment.user.username %></p>
       </li>
-      <p>Comment by: <%= comment.user.username %></p>
       <% end %>
     </ul>
 
