@@ -4,7 +4,7 @@ $(document).ready(function() {
   $(".new-comment-form").on('submit', newCommentHandler);
   $("#please").on('submit', "div.vote-buttons form", voteHandler);
   $("#please").on('submit', '#new-answer', answerHandler)
-  $(".best").on('click', bestAnswer)
+  $("div#answer-list").on('click', ".best", bestAnswer)
 });
 
 var answerHandler = function(event) {
