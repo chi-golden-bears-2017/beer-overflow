@@ -14,8 +14,14 @@ post '/sessions' do
       redirect '/'
     end
   else
-    @message = "Either you username or password was wrong"
-    erb :"session/new"
+    if request.xhr?
+      status 422
+      body "Invalid username or password."
+    else
+      status 422
+      @message = "Invalid username or password."
+      erb :"session/new"
+    end
   end
 
 end

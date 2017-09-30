@@ -14,6 +14,7 @@ var answerHandler = function(event) {
   var answer = $this.find("textarea[name=body]").val();
   var url = $this.attr("action");
   var data = $(this).serializeArray();
+
   var request = $.ajax({
     url: url,
     method: 'POST',
@@ -81,6 +82,11 @@ var loginHandler = function(event) {
     $(".logged-in li").first().text("Hello, " + response + "!")
     $(".logged-in").show();
   })
+
+  ajaxPromise.fail(function(error) {
+    $(".error").text(error.responseText);
+  });
+
 };
 
 var voteHandler = function(event) {
@@ -90,6 +96,7 @@ var voteHandler = function(event) {
   var url;
   var questionId;
   var answerId;
+
   if ($ballot_box.attr('id') === 'question'){
     questionId = $('h2').attr('id')
     url = '/questions/' + questionId + '/votes'
@@ -97,12 +104,14 @@ var voteHandler = function(event) {
     answerId = $ballot_box.attr('id')
     url = '/answers/' + answerId + '/votes'
   }
+
   var data;
   if (form.attr('class') === "up-vote"){
     data = {value: 1}
   } else {
     data = {value: -1}
   }
+
   var ajaxPromise = $.ajax({
     url: url,
     method: 'POST',
@@ -110,6 +119,7 @@ var voteHandler = function(event) {
   })
 
   ajaxPromise.done(function(response) {
+    console.log(response)
     var new_total = "Total votes: " + response
     console.log(new_total)
     console.log(form)
@@ -117,6 +127,11 @@ var voteHandler = function(event) {
     var $voteCount = $ballot_box.closest('div.answer').find('p.vote-count')
     $voteCount.text(new_total)
   });
+
+  ajaxPromise.fail(function(error) {
+    $(".error").text(error.responseText);
+  });
+
 };
 
 var bestAnswer = function(event) {

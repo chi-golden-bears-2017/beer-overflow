@@ -26,6 +26,7 @@
       </ul>
         <% else %>
       <ul class="logged-out">
+        <div class="error"></div>
         <li><a id="login-button" href="/sessions/new">Login</a></li>
         <li><a href="/users/new">Sign Up</a></li>
         <li><%= erb :'session/_login_form' %></li>
