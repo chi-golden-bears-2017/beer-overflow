@@ -48,24 +48,24 @@
     </div>
   <% end %>
 
-  <ul>
-  <p class="answer"><%= answer.body %>
+  <div class="answer">
+    <p><%= answer.body %></p>
     <p>Answer by: <%= answer.user.username %></p>
+
       <div class="comment-list">
         <ul>
-          <% answer.comments.each do |comment| %>
-            <li class="comment"><%= comment.body %></li>
-            <p>Comment by: <%= comment.user.username %></p>
-          <% end %>
-        </ul>
-        <% if logged_in? %>
-          <form action="/answers/<%= answer.id %>/comments/new" method="post" class="new-comment-form">
-          <%= erb :'partials/_add_comment' %>
-          </form>
+        <% answer.comments.each do |comment| %>
+          <li class="comment"><%= comment.body %></li>
+          <p>Comment by: <%= comment.user.username %></p>
         <% end %>
+        </ul>
       </div>
-    </p>
-  </p>
+      <% if logged_in? %>
+        <form action="/answers/<%= answer.id %>/comments/new" method="post" class="new-comment-form">
+          <%= erb :'partials/_add_comment' %>
+        </form>
+      <% end %>
+    </div>
   <% end %>
 </div>
 
