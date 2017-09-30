@@ -13,69 +13,69 @@
 
   </div>
 <% end %>
+<div id="please">
+  <h2 id="<%= @question.id %>">Question: <%= @question.title %></h2>
+  <p><%= @question.body %></p>
 
-<h2 id="<%= @question.id %>">Question: <%= @question.title %></h2>
-<p><%= @question.body %></p>
-
-<div class="comment-list">
-  <h4>Comments:</h4>
-  <ul><% @question.comments.each do |comment| %>
-    <li class="comment"><%= comment.body %>
-    </li>
-    <p>Comment by: <%= comment.user.username %></p>
-    <% end %>
-  </ul>
-
-  <% if logged_in? %>
-    <form action="/questions/<%= @question.id %>/comments/new" method="post" class="new-comment-form">
-      <%= erb :'partials/_add_comment' %>
-    </form>
-  <% end %>
-</div>
-
-<div id="answer-list"><% @question.answers.each do |answer| %>
-  <% if logged_in? %>
-    <div class="vote-buttons" id="<%= answer.id %>">
-      <p>Total votes: <%= answer.vote_count %></p>
-      <form method="post" action="/answers/<%= answer.id %>/votes" class="up-vote" >
-        <input type="hidden" name="value" value="1">
-        <input type="submit" value="Upvote">
-      </form>
-      <form method="post" action="/answers/<%= answer.id %>/votes" class="down-vote">
-        <input type="hidden" name="value" value="-1">
-        <input type="submit" value = "Downvote">
-      </form>
-    </div>
-  <% end %>
-
-  <div class="answer">
-    <p><%= answer.body %></p>
-    <p>Answer by: <%= answer.user.username %></p>
-
-      <div class="comment-list">
-        <ul>
-        <% answer.comments.each do |comment| %>
-          <li class="comment"><%= comment.body %></li>
-          <p>Comment by: <%= comment.user.username %></p>
-        <% end %>
-        </ul>
-      </div>
-      <% if logged_in? %>
-        <form action="/answers/<%= answer.id %>/comments/new" method="post" class="new-comment-form">
-          <%= erb :'partials/_add_comment' %>
-        </form>
+  <div class="comment-list">
+    <h4>Comments:</h4>
+    <ul><% @question.comments.each do |comment| %>
+      <li class="comment"><%= comment.body %>
+      </li>
+      <p>Comment by: <%= comment.user.username %></p>
       <% end %>
-    </div>
-  <% end %>
+    </ul>
+
+    <% if logged_in? %>
+      <form action="/questions/<%= @question.id %>/comments/new" method="post" class="new-comment-form">
+        <%= erb :'partials/_add_comment' %>
+      </form>
+    <% end %>
+  </div>
+
+  <div id="answer-list"><% @question.answers.each do |answer| %>
+    <% if logged_in? %>
+      <div class="vote-buttons" id="<%= answer.id %>">
+        <p>Total votes: <%= answer.vote_count %></p>
+        <form method="post" action="/answers/<%= answer.id %>/votes" class="up-vote" >
+          <input type="hidden" name="value" value="1">
+          <input type="submit" value="Upvote">
+        </form>
+        <form method="post" action="/answers/<%= answer.id %>/votes" class="down-vote">
+          <input type="hidden" name="value" value="-1">
+          <input type="submit" value = "Downvote">
+        </form>
+      </div>
+    <% end %>
+
+    <div class="answer">
+      <p><%= answer.body %></p>
+      <p>Answer by: <%= answer.user.username %></p>
+
+        <div class="comment-list">
+          <ul>
+          <% answer.comments.each do |comment| %>
+            <li class="comment"><%= comment.body %></li>
+            <p>Comment by: <%= comment.user.username %></p>
+          <% end %>
+          </ul>
+        </div>
+        <% if logged_in? %>
+          <form action="/answers/<%= answer.id %>/comments/new" method="post" class="new-comment-form">
+            <%= erb :'partials/_add_comment' %>
+          </form>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <% if logged_in? %>
+    <form id="new-answer" action="/questions/<%= @question.id %>/answers/new" method="post">
+      <%= erb :'partials/_add_answer' %>
+    </form>
+    <% end %>
+  </div>
+
 </div>
-
-<div>
-  <% if logged_in? %>
-  <form id="new-answer" action="/questions/<%= @question.id %>/answers/new" method="post">
-    <%= erb :'partials/_add_answer' %>
-  </form>
-  <% end %>
-</div>
-
-
 

@@ -4,8 +4,8 @@ $(document).ready(function() {
 
   $(".new-comment-form").on('submit', newCommentHandler);
 
-  $("div.vote-buttons form").on('submit', voteHandler);
-  $("#new-answer").on('submit', answerHandler)
+  $("#please").on('submit', "div.vote-buttons form", voteHandler);
+  $("#please").on('submit', '#new-answer', answerHandler)
 });
 
 var answerHandler = function(event) {
@@ -14,13 +14,23 @@ var answerHandler = function(event) {
 
   var answer = $this.find("textarea[name=body]").val();
   var url = $this.attr("action");
-  var data = $(this).serialize();
+
+  var data = $(this).serializeArray();
+  // var val1 = data[0].value
+  // var val2 = data[1].value
+
+  // data = val1 + " " + val2
 
   var request = $.ajax({
     url: url,
     method: 'POST',
     data: data
   })
+  console.log("this is data console log")
+  console.log(data)
+
+
+
 
   if ($.trim(answer) === "") {
     event.preventDefault();
@@ -29,8 +39,13 @@ var answerHandler = function(event) {
   }
 
   request.done(function(response) {
-    console.log($("#answer-list > .answer"))
-    $("#answer-list > .answer").append("<p class='answer'>" + response + "</p>")
+    console.log("this is RESPONSE console log")
+    console.log(response)
+
+    var clonedAnswer = $(".answer").first().clone()
+    clonedAnswer.find("p").first().text(response)
+    clonedAnswer.find("ul").empty()
+    $("#answer-list").append(clonedAnswer)
   })
 
   $(".new-comment-form").trigger("reset")
