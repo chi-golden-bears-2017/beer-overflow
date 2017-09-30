@@ -91,9 +91,14 @@ var loginHandler = function(event) {
 
   ajaxPromise.done(function(response) {
     $this.hide();
-    $(".logged-out").hide();
-    $(".logged-in li").first().text("Hello, " + response + "!")
-    $(".logged-in").show();
+    if (response === "error")  {
+      response = "Invalid username or password."
+      $(".logged-out").prepend(response );
+    } else {
+      $(".logged-out").hide();
+      $(".logged-in li").first().text("Hello, " + response + "!")
+      $(".logged-in").show();
+    };
   })
 };
 
