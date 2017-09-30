@@ -3,10 +3,8 @@ $(document).ready(function() {
   $("#login-form").on('submit', loginHandler);
   $(".new-comment-form").on('submit', newCommentHandler);
   $("div.vote-buttons form").on('submit', voteHandler);
-
-  $(".best").on()
-
   $("#new-answer").on('submit', answerHandler)
+  $(".best").on('click', bestAnswer)
 
 });
 
@@ -123,7 +121,29 @@ var voteHandler = function(event) {
   });
 };
 
+var bestAnswer = function(event) {
+  var $this = $(this)
+  console.log($this.attr('id'))
 
-// # best answer button on each answer:
-// # when clicked, update db, show all buttons, hide button, show "Best Answer Badge" (visible to all users)
+  var questionId = $("h2").attr("id")
+  var url = '/questions/' + questionId
+  var answerId = $this.attr('id')
+  var data = {answer_id: answerId}
+
+  var ajaxPromise = $.ajax({
+    url: url,
+    method: 'POST',
+    data: data
+  })
+
+  ajaxPromise.done(function(response) {
+    $(".best").show();
+    $this.hide();
+    console.log($(".best-answer"))
+    $(".best-answer").remove();
+    $this.closest("p").append("<p class='best-answer'>Best Answer Badge</p>");
+  })
+};
+
+// (visible to all users)
 
