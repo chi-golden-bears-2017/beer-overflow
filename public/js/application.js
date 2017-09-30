@@ -15,10 +15,7 @@ var answerHandler = function(event) {
   var url = $this.attr("action");
 
   var data = $(this).serializeArray();
-  // var val1 = data[0].value
-  // var val2 = data[1].value
 
-  // data = val1 + " " + val2
 
   var request = $.ajax({
     url: url,
@@ -91,15 +88,15 @@ var loginHandler = function(event) {
 
   ajaxPromise.done(function(response) {
     $this.hide();
-    if (response === "error")  {
-      response = "Invalid username or password."
-      $(".logged-out").prepend(response );
-    } else {
-      $(".logged-out").hide();
-      $(".logged-in li").first().text("Hello, " + response + "!")
-      $(".logged-in").show();
-    };
+    $(".logged-out").hide();
+    $(".logged-in li").first().text("Hello, " + response + "!")
+    $(".logged-in").show();
   })
+
+  ajaxPromise.fail(function(error) {
+    $(".error").text(error.responseText);
+  });
+
 };
 
 var voteHandler = function(event) {
@@ -109,6 +106,7 @@ var voteHandler = function(event) {
   var url;
   var questionId;
   var answerId;
+
   if ($ballot_box.attr('id') === 'question'){
     questionId = $('h2').attr('id')
     url = '/questions/' + questionId + '/votes'
@@ -116,12 +114,14 @@ var voteHandler = function(event) {
     answerId = $ballot_box.attr('id')
     url = '/answers/' + answerId + '/votes'
   }
+
   var data;
   if (form.attr('class') === "up-vote"){
     data = {value: 1}
   } else {
     data = {value: -1}
   }
+
   var ajaxPromise = $.ajax({
     url: url,
     method: 'POST',
@@ -129,10 +129,16 @@ var voteHandler = function(event) {
   })
 
   ajaxPromise.done(function(response) {
+    console.log(response)
     var new_total = "Total votes: " + response
     console.log(new_total)
     $ballot_box.find("p").text(new_total)
   });
+
+  ajaxPromise.fail(function(error) {
+    $(".error").text(error.responseText);
+  });
+
 };
 
 var bestAnswer = function(event) {

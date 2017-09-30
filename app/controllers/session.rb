@@ -4,6 +4,7 @@ end
 
 post '/sessions' do
   @user = User.find_by(username: params[:username])
+
   if @user && @user.authenticate(params[:password])
     session[:user_id] = @user.id
 
@@ -14,9 +15,11 @@ post '/sessions' do
     end
   else
     if request.xhr?
-      "error"
+      status 422
+      body "Invalid username or password."
     else
-      @message = "Either you username or password was wrong"
+      status 422
+      @message = "Invalid username or password."
       erb :"session/new"
     end
   end
