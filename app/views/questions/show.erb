@@ -15,6 +15,7 @@
 <% end %>
 
 <h2 id="<%= @question.id %>">Question: <%= @question.title %></h2>
+<p>posted by: <%= @question.user.username %></p>
 <p><%= @question.body %></p>
 
 <div class="comment-list">
@@ -34,9 +35,9 @@
 </div>
 
 <div id="answer-list"><% @question.answers.each do |answer| %>
+
   <% if logged_in? %>
     <div class="vote-buttons" id="<%= answer.id %>">
-      <p>Total votes: <%= answer.vote_count %></p>
       <form method="post" action="/answers/<%= answer.id %>/votes" class="up-vote" >
         <input type="hidden" name="value" value="1">
         <input type="submit" value="Upvote">
@@ -49,7 +50,16 @@
   <% end %>
 
   <ul>
-  <p class="answer"><%= answer.body %>
+  <p class="answer"><%= answer.body %></p>
+  <p>Total votes: <%= answer.vote_count %></p>
+    <p class="best-answer">
+      <%= "Best Answer Badge" if answer == answer.question.best_answer %>
+    </p>
+  <p>
+  <% if logged_in? && current_user == answer.question.user %>
+    <button class="best" id="<%= answer.id %>">Best Answer!</button>
+  <% end %>
+  </p>
     <p>Answer by: <%= answer.user.username %></p>
       <div class="comment-list">
         <ul>
@@ -64,8 +74,7 @@
           </form>
         <% end %>
       </div>
-    </p>
-  </p>
+
   <% end %>
 </div>
 

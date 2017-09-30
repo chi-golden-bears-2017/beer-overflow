@@ -43,7 +43,16 @@ post '/questions/:id/votes' do
   end
 end
 
-
+post '/questions/:id' do
+  p params
+  @question = Question.find(params[:id])
+  @answer = Answer.find(params[:answer_id])
+  @question.best_answer = @answer
+  @question.save
+  # p @answer
+  p @question.best_answer
+  "beer"
+end
 
 
 
