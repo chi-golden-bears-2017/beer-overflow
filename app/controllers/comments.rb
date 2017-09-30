@@ -14,7 +14,8 @@ post '/questions/:id/comments/new' do
 
   if comment.save
     if request.xhr?
-      comment.body
+      content_type :json
+      {body: comment.body, username: current_user.username}.to_json
     else
       erb :"questions/show"
     end
@@ -29,7 +30,8 @@ post '/answers/:id/comments/new' do
 
   if comment.save
     if request.xhr?
-      comment.body
+      content_type :json
+      {body: comment.body, username: current_user.username}.to_json
     else
       erb :"questions/show"
     end

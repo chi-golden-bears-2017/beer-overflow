@@ -1,6 +1,6 @@
+<p>Total votes: <%= @question.vote_count %></p>
 <% if logged_in? %>
   <div class="vote-buttons" id="question">
-    <p>Total votes: <%= @question.vote_count %></p>
     <form method="post" action="/questions/<%= @question.id %>/votes" class="up-vote">
       <input type="hidden" name="value" value="1">
       <input type="submit" value="Upvote">
@@ -22,8 +22,8 @@
     <h4>Comments:</h4>
     <ul><% @question.comments.each do |comment| %>
       <li class="comment"><%= comment.body %>
+        <p>Comment by: <%= comment.user.username %></p>
       </li>
-      <p>Comment by: <%= comment.user.username %></p>
       <% end %>
     </ul>
 

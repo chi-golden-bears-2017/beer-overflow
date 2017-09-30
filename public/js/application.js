@@ -1,10 +1,10 @@
 $(document).ready(function() {
   $("#login-button").on('click', showForm);
   $("#login-form").on('submit', loginHandler);
-  $(".new-comment-form").on('submit', newCommentHandler);
+  $("div#answer-list").on('submit', ".new-comment-form", newCommentHandler);
   $("#please").on('submit', "div.vote-buttons form", voteHandler);
   $("#please").on('submit', '#new-answer', answerHandler)
-  $(".best").on('click', bestAnswer)
+  $("div#answer-list").on('click', ".best", bestAnswer)
 });
 
 var answerHandler = function(event) {
@@ -13,23 +13,12 @@ var answerHandler = function(event) {
 
   var answer = $this.find("textarea[name=body]").val();
   var url = $this.attr("action");
-
   var data = $(this).serializeArray();
-  // var val1 = data[0].value
-  // var val2 = data[1].value
-
-  // data = val1 + " " + val2
-
   var request = $.ajax({
     url: url,
     method: 'POST',
     data: data
   })
-  console.log("this is data console log")
-  console.log(data)
-
-
-
 
   if ($.trim(answer) === "") {
     event.preventDefault();
@@ -41,10 +30,7 @@ var answerHandler = function(event) {
     $("#answer-list").append(response)
   })
     $("#new-answer").trigger("reset")
-
     $(".new-comment-form").trigger("reset")
-
-
 };
 
 var newCommentHandler = function(event) {
@@ -67,7 +53,7 @@ var newCommentHandler = function(event) {
   }
 
   request.done(function(response) {
-    $this.closest(".comment-list").find("ul").append("<li class='comment'>" + response + "</li>")
+    $this.closest(".comment-list").find("ul").append("<li class='comment'>" + response.body + "<p>Comment by: " + response.username + "</p></li>")
   })
 
   $(".new-comment-form").trigger("reset")
@@ -126,7 +112,10 @@ var voteHandler = function(event) {
   ajaxPromise.done(function(response) {
     var new_total = "Total votes: " + response
     console.log(new_total)
-    $ballot_box.find("p").text(new_total)
+    console.log(form)
+    console.log($ballot_box.closest('div.answer').find('p.vote-count'));
+    var $voteCount = $ballot_box.closest('div.answer').find('p.vote-count')
+    $voteCount.text(new_total)
   });
 };
 
