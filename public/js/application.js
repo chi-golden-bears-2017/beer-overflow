@@ -1,11 +1,10 @@
 $(document).ready(function() {
   $("#login-button").on('click', showForm);
   $("#login-form").on('submit', loginHandler);
-
   $(".new-comment-form").on('submit', newCommentHandler);
-
   $("#please").on('submit', "div.vote-buttons form", voteHandler);
   $("#please").on('submit', '#new-answer', answerHandler)
+  $(".best").on('click', bestAnswer)
 });
 
 var answerHandler = function(event) {
@@ -123,7 +122,6 @@ var voteHandler = function(event) {
   } else {
     data = {value: -1}
   }
-
   var ajaxPromise = $.ajax({
     url: url,
     method: 'POST',
@@ -134,6 +132,32 @@ var voteHandler = function(event) {
     var new_total = "Total votes: " + response
     console.log(new_total)
     $ballot_box.find("p").text(new_total)
+  });
+};
+
+var bestAnswer = function(event) {
+  var $this = $(this)
+  console.log($this.attr('id'))
+
+  var questionId = $("h2").attr("id")
+  var url = '/questions/' + questionId
+  var answerId = $this.attr('id')
+  var data = {answer_id: answerId}
+
+  var ajaxPromise = $.ajax({
+    url: url,
+    method: 'POST',
+    data: data
+  })
+
+  ajaxPromise.done(function(response) {
+    $(".best").show();
+    $this.hide();
+    console.log($(".best-answer"))
+    $(".best-answer").remove();
+    $this.closest("p").append("<p class='best-answer'>Best Answer Badge</p>");
   })
 };
+
+// (visible to all users)
 
