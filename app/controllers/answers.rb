@@ -22,12 +22,16 @@ post '/answers/:id/votes' do
 end
 
 post '/questions/:id/answers/new' do
+  ep params
+
   @question = Question.find(params[:id])
   answer = Answer.new(body: params[:body], user_id: current_user.id, question_id: @question.id)
 
+
   if answer.save
     if request.xhr?
-      answer.body
+      from_params = { username: current_user.username,
+                      body: answer.body }
     else
       erb :"questions/show"
     end

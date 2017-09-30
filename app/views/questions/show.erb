@@ -13,26 +13,26 @@
 
   </div>
 <% end %>
+<div id="please">
+  <h2 id="<%= @question.id %>">Question: <%= @question.title %></h2>
+  <p>posted by: <%= @question.user.username %></p>
+  <p><%= @question.body %></p>
+  
+  <div class="comment-list">
+    <h4>Comments:</h4>
+    <ul><% @question.comments.each do |comment| %>
+      <li class="comment"><%= comment.body %>
+      </li>
+      <p>Comment by: <%= comment.user.username %></p>
+      <% end %>
+    </ul>
 
-<h2 id="<%= @question.id %>">Question: <%= @question.title %></h2>
-<p>posted by: <%= @question.user.username %></p>
-<p><%= @question.body %></p>
-
-<div class="comment-list">
-  <h4>Comments:</h4>
-  <ul><% @question.comments.each do |comment| %>
-    <li class="comment"><%= comment.body %>
-    </li>
-    <p>Comment by: <%= comment.user.username %></p>
+    <% if logged_in? %>
+      <form action="/questions/<%= @question.id %>/comments/new" method="post" class="new-comment-form">
+        <%= erb :'partials/_add_comment' %>
+      </form>
     <% end %>
-  </ul>
-
-  <% if logged_in? %>
-    <form action="/questions/<%= @question.id %>/comments/new" method="post" class="new-comment-form">
-      <%= erb :'partials/_add_comment' %>
-    </form>
-  <% end %>
-</div>
+  </div>
 
 <div id="answer-list"><% @question.answers.each do |answer| %>
 
@@ -49,42 +49,49 @@
     </div>
   <% end %>
 
-  <ul>
+  <div class="answer">
+
   <p class="answer"><%= answer.body %></p>
   <p>Total votes: <%= answer.vote_count %></p>
     <p class="best-answer">
       <%= "Best Answer Badge" if answer == answer.question.best_answer %>
     </p>
   <p>
+      
   <% if logged_in? && current_user == answer.question.user %>
     <button class="best" id="<%= answer.id %>">Best Answer!</button>
   <% end %>
   </p>
     <p>Answer by: <%= answer.user.username %></p>
-      <div class="comment-list">
-        <ul>
-          <% answer.comments.each do |comment| %>
-            <li class="comment"><%= comment.body %></li>
+
+   <div class="comment-list">
+     <ul>
+        <% answer.comments.each do |comment| %>
+          <li class="comment">
+            <%= comment.body %>
             <p>Comment by: <%= comment.user.username %></p>
-          <% end %>
-        </ul>
-        <% if logged_in? %>
-          <form action="/answers/<%= answer.id %>/comments/new" method="post" class="new-comment-form">
-          <%= erb :'partials/_add_comment' %>
-          </form>
+          </li>
         <% end %>
-      </div>
+     </ul>
+   </div>
+    
+   <% if logged_in? %>
+      <form action="/answers/<%= answer.id %>/comments/new" method="post" class="new-comment-form">
+         <%= erb :'partials/_add_comment' %>
+      </form>
+   <% end %>
+   </div>
+    <% end %>
+  </div>
 
-  <% end %>
+
+  <div>
+    <% if logged_in? %>
+    <form id="new-answer" action="/questions/<%= @question.id %>/answers/new" method="post">
+      <%= erb :'partials/_add_answer' %>
+    </form>
+    <% end %>
+  </div>
+
 </div>
-
-<div>
-  <% if logged_in? %>
-  <form id="new-answer" action="/questions/<%= @question.id %>/answers/new" method="post">
-    <%= erb :'partials/_add_answer' %>
-  </form>
-  <% end %>
-</div>
-
-
 
