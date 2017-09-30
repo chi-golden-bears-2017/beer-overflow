@@ -30,9 +30,6 @@ post '/questions/:id/answers/new' do
   if @answer.save
     if request.xhr?
       ep "This is going through ajax"
-      # content_type :json
-      # { username: current_user.username,
-      #   body: answer.body }.to_json
       erb :"partials/_new_answer", layout: false, locals: {answer: @answer}
     else
       ep "I'm refereshing"

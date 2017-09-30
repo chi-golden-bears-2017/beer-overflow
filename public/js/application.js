@@ -38,18 +38,11 @@ var answerHandler = function(event) {
   }
 
   request.done(function(response) {
-    console.log("this is RESPONSE console log")
-    console.log(response)
-
-    var clonedAnswer = $("div.answer").first().clone();
-    clonedAnswer.find("p").first().text(response.body);
-    clonedAnswer.find("p.answer-username").text("Answer by: " + response.username);
-    clonedAnswer.find("p.vote-count").text("Total Votes: 0");
-    clonedAnswer.find("ul").empty();
-    $("#answer-list").append(clonedAnswer)
+    $("#answer-list").append(response)
   })
+    $("#new-answer").trigger("reset")
 
-  $(".new-comment-form").trigger("reset")
+    $(".new-comment-form").trigger("reset")
 
 
 };
