@@ -17,7 +17,7 @@
   <h2 id="<%= @question.id %>">Question: <%= @question.title %></h2>
   <p>posted by: <%= @question.user.username %></p>
   <p><%= @question.body %></p>
-  
+
   <div class="comment-list">
     <h4>Comments:</h4>
     <ul><% @question.comments.each do |comment| %>
@@ -34,61 +34,17 @@
     <% end %>
   </div>
 
-<div id="answer-list"><% @question.answers.each do |answer| %>
-
-  <% if logged_in? %>
-    <div class="vote-buttons" id="<%= answer.id %>">
-      <form method="post" action="/answers/<%= answer.id %>/votes" class="up-vote" >
-        <input type="hidden" name="value" value="1">
-        <input type="submit" value="Upvote">
-      </form>
-      <form method="post" action="/answers/<%= answer.id %>/votes" class="down-vote">
-        <input type="hidden" name="value" value="-1">
-        <input type="submit" value = "Downvote">
-      </form>
-    </div>
+<div id="answer-list">
+  <% @question.answers.each do |answer| %>
+    <%= erb :"partials/_new_answer", locals: {answer: answer} %>
   <% end %>
-
-  <div class="answer">
-
-  <p class="answer"><%= answer.body %></p>
-  <p>Total votes: <%= answer.vote_count %></p>
-    <p class="best-answer">
-      <%= "Best Answer Badge" if answer == answer.question.best_answer %>
-    </p>
-  <p>
-      
-  <% if logged_in? && current_user == answer.question.user %>
-    <button class="best" id="<%= answer.id %>">Best Answer!</button>
-  <% end %>
-  </p>
-    <p>Answer by: <%= answer.user.username %></p>
-
-   <div class="comment-list">
-     <ul>
-        <% answer.comments.each do |comment| %>
-          <li class="comment">
-            <%= comment.body %>
-            <p>Comment by: <%= comment.user.username %></p>
-          </li>
-        <% end %>
-     </ul>
-   </div>
-    
-   <% if logged_in? %>
-      <form action="/answers/<%= answer.id %>/comments/new" method="post" class="new-comment-form">
-         <%= erb :'partials/_add_comment' %>
-      </form>
-   <% end %>
-   </div>
-    <% end %>
-  </div>
+</div>
 
 
   <div>
     <% if logged_in? %>
     <form id="new-answer" action="/questions/<%= @question.id %>/answers/new" method="post">
-      <%= erb :'partials/_add_answer' %>
+      <%= erb :'partials/_answer_form' %>
     </form>
     <% end %>
   </div>

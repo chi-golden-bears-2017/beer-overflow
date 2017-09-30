@@ -25,14 +25,17 @@ post '/questions/:id/answers/new' do
   ep params
 
   @question = Question.find(params[:id])
-  answer = Answer.new(body: params[:body], user_id: current_user.id, question_id: @question.id)
+  @answer = Answer.new(body: params[:body], user_id: current_user.id, question_id: @question.id)
 
-
-  if answer.save
+  if @answer.save
     if request.xhr?
-      from_params = { username: current_user.username,
-                      body: answer.body }
+      ep "This is going through ajax"
+      # content_type :json
+      # { username: current_user.username,
+      #   body: answer.body }.to_json
+      erb :"partials/_new_answer", layout: false, locals: {answer: @answer}
     else
+      ep "I'm refereshing"
       erb :"questions/show"
     end
   else
