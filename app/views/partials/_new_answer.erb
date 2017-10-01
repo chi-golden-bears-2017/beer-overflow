@@ -40,6 +40,9 @@
           <li class="comment">
             <%= comment.body %>
             <p class="comment-details">username: <%= comment.user.username %></p>
+            <% if logged_in?  && authorized?(comment.user) %>
+            <a href="/comments/<%= comment.id %>/edit">edit</a>
+            <% end %>
           </li>
         <% end %>
      </ul>

@@ -54,7 +54,7 @@ var newCommentHandler = function(event) {
   }
 
   request.done(function(response) {
-    $this.closest(".comment-list").find("ul").append("<li class='comment'>" + response.body + "<p>Comment by: " + response.username + "</p></li>")
+    $this.closest(".comment-list").find("ul").append("<li class='comment'>" + response.body + "<p>Comment by: " + response.username + "</p><a href='/comments/" + response.id + "/edit'>edit</a></li>")
   })
 
   $(".new-comment-form").trigger("reset")

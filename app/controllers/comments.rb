@@ -39,9 +39,12 @@ post '/comments/:id/edit' do
   authenticate!
   authorize!(@user)
   p params
-  p @comment
   @comment.update(body: params[:body])
-  redirect "/questions/#{@comment.commentable.id}"
+  if @comment.commentable_type == "Question"
+    redirect "/questions/#{@comment.commentable.id}"
+  else
+    redirect "/questions/#{@comment.commentable.question.id}"
+  end
 end
 
 post '/answers/:id/comments/new' do
@@ -51,7 +54,7 @@ post '/answers/:id/comments/new' do
   if comment.save
     if request.xhr?
       content_type :json
-      {body: comment.body, username: current_user.username}.to_json
+      {body: comment.body, username: current_user.username, id: comment.id}.to_json
     else
       erb :"questions/show"
     end
