@@ -6,24 +6,28 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="/js/application.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Permanent+Marker|Ubuntu" rel="stylesheet">
 
   <title></title>
 </head>
 <body>
+
   <div class="container">
     <nav>
-      <h1><a href="/">Beer Overflow</a></h1>
+      <h1><a href="/"><i class="fa fa-beer" aria-hidden="true"></i> Beer Overflow</a></h1>
       <ul>
         <%= erb :'_logout_button' %>
         <% if logged_in? %>
         <li>Hello, <%= current_user.username %></li>
-        <li><a href="/questions/new">New Question</a></li>
+
         <li><form method="POST" action="/sessions">
               <input type="hidden" name="_method" value="DELETE" />
               <input type="submit" class="button" value="Logout" />
             </form>
         </li>
       </ul>
+      <a href="/questions/new">New Question</a>
         <% else %>
       <ul class="logged-out">
         <div class="error"></div>

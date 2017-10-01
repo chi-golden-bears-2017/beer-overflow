@@ -1,13 +1,14 @@
 <div class="answer">
     <% if logged_in? %>
       <div class="vote-buttons" id="<%= answer.id %>">
-        <form method="post" action="/answers/<%= answer.id %>/votes" class="up-vote" >
+        <form method="post" action="/answers/<%= answer.id %>/votes" class="up-vote answer-vote" >
           <input type="hidden" name="value" value="1">
-          <input type="submit" value="Upvote">
+          <button type="submit" value="Upvote" ><i class="fa fa-arrow-up"></i></button>
         </form>
-        <form method="post" action="/answers/<%= answer.id %>/votes" class="down-vote">
+        <form method="post" action="/answers/<%= answer.id %>/votes" class="down-vote answer-vote">
           <input type="hidden" name="value" value="-1">
-          <input type="submit" value = "Downvote">
+          <button type="submit" value="Downvote" ><i class="fa fa-arrow-down"></i></button>
+
         </form>
       </div>
     <% end %>
@@ -15,7 +16,9 @@
   <p class="answer"><%= answer.body %></p>
   <p class="vote-count">Total votes: <%= answer.vote_count %></p>
   <p class="best-answer">
-      <%= "Best Answer Badge" if answer == answer.question.best_answer %>
+      <% if answer == answer.question.best_answer %>
+          <i class="fa fa-star" aria-hidden="true"></i>
+      <% end %>
   </p>
   <p>
 
@@ -30,7 +33,7 @@
         <% answer.comments.each do |comment| %>
           <li class="comment">
             <%= comment.body %>
-            <p>Comment by: <%= comment.user.username %></p>
+            <p class="comment-details">username: <%= comment.user.username %></p>
           </li>
         <% end %>
      </ul>
