@@ -38,8 +38,9 @@ end
 
 get '/questions/:id' do
   @answer = Answer.new
+  comment = Comment.new
   @question = Question.find(params[:id])
-  erb :'questions/show'
+  erb :'questions/show', locals: {comment: comment}
 end
 
 post '/questions/:id/votes' do
