@@ -48,6 +48,7 @@
      </ul>
    <% if logged_in? %>
       <form action="/answers/<%= answer.id %>/comments/new" method="post" class="new-comment-form">
+         <% comment = comment || Comment.new %>
          <%= erb :'partials/_add_comment', locals: {comment: comment} %>
       </form>
     <% end %>

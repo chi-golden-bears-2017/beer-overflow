@@ -28,8 +28,14 @@ var answerHandler = function(event) {
   }
 
   request.done(function(response) {
+    console.log(response)
     $("#answer-list").append(response)
   })
+
+  request.fail(function(error) {
+    console.log(error)
+  });
+
     $("#new-answer").trigger("reset")
     $(".new-comment-form").trigger("reset")
 };

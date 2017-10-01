@@ -25,9 +25,12 @@ post '/questions/:id/answers/new' do
   @question = Question.find(params[:id])
   @answer = Answer.new(body: params[:body], user_id: current_user.id, question_id: @question.id)
 
+  ep @answer
+
   if @answer.save
     if request.xhr?
       ep "This is going through ajax"
+      p "why?"
       erb :"partials/_new_answer", layout: false, locals: {answer: @answer}
     else
       ep "I'm refereshing"
