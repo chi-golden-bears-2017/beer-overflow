@@ -1,11 +1,42 @@
+
 body {
   display: flex;
   justify-content: center;
+  margin: 0;
+  /*float: left;*/
+  background-color: #EDA503;
+}
+
+.beer-man {
+  height: 300px;
+  display: inline-block;
+  vertical-align: middle;
+
+/*  position: absolute;
+  left: 50px;
+  top: 50px;
+  z-index: -1;*/
+}
+.new-question-form {
+  padding: 20px;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .container {
-  width: 960px;
+  width: 860px;
   margin: 20px;
+  background-color: white;
+  padding: 20px 80px;
+}
+
+h1 a{
+  font-family: 'Permanent Marker', cursive;
+  text-decoration: none;
+  font-size: 2em;
+}
+h2 {
+  font-family: 'Ubuntu', sans-serif;
 }
 
 nav {
@@ -37,11 +68,147 @@ nav li {
   cursor:pointer;
 }
 
-.answer {
-  color: green;
+
+ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-.comment-list {
-  border: dotted 1px red;
-  color: navy;
+.index-question a {
+  text-decoration: none;
+  font-size: 1.3em;
+  font-family: 'Ubuntu', sans-serif;
 }
+
+li.index-question {
+  padding: 5px 0;
+}
+p.question-details {
+  font-size: 0.9em;
+  color: #7A7B7D;
+}
+p.comment-details {
+  font-size: 0.9em;
+  color: #7A7B7D;
+}
+
+a:link {
+    color: #000;
+}
+
+a:visited {
+    color: #000;
+}
+
+a:hover {
+    color: #7D5702;
+}
+
+a:active {
+    color: #7D5702;
+}
+
+div.comment-list {
+  border-left: solid .3px #7A7B7D;
+  margin-left: 80px;
+  padding-left: 20px;
+}
+
+li.comment {
+  padding-bottom: 20px;
+  font-size: .9em;
+}
+
+.new-comment-form form {
+    width: 100%;
+    display: block;
+}
+
+.new-comment-form textarea {
+    width: 60%;
+    padding: 10px ;
+}
+
+.answer.vote-buttons {
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+
+form.answer-vote  {
+  padding: 0;
+  margin: 0;
+
+}
+
+form.up-vote button {
+  background-color: transparent;
+  color: green;
+  border: none;
+  outline: 0;
+}
+
+form.down-vote button {
+  background-color: transparent;
+  color: red;
+  border: none;
+  outline: 0;
+}
+
+#question.vote-buttons {
+  display: inline-block;
+}
+
+.answer.vote-buttons {
+  display: inline-block;
+}
+
+#please h2 {
+  width: 70%;
+  display: inline-block;
+}
+
+
+.new-comment-form input {
+  display: inline-block;
+  width: 200px;
+  background-color: #000;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  padding: 10px;
+  margin: 20px 0;
+  display: block;
+  outline: 0;
+}
+
+#new-answer textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+}
+#new-answer input {
+  display: inline-block;
+  width: 100%;
+  background-color: #000;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  padding: 10px;
+  margin: 20px 0;
+  display: block;
+  outline: 0;
+}
+
+p.answer {
+  width: 70%;
+  display: inline-block;
+  font-size: 1.1em;
+}
+
+.best-answer{
+  color: #EDA503;
+}
+

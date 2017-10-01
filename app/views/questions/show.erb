@@ -1,29 +1,32 @@
 <div id="please">
+
+  <% if logged_in? %>
+    <div class="vote-buttons" id="question">
+      <div class="error"></div>
+      <form method="post" action="/questions/<%= @question.id %>/votes" class="up-vote">
+        <input type="hidden" name="value" value="1">
+        <button type="submit" value="Upvote" ><i class="fa fa-arrow-up"></i></button>
+      </form>
+
 <p class="vote-count">Total votes: <%= @question.vote_count %></p>
-<% if logged_in? %>
-  <div class="vote-buttons" id="question">
-    <div class="error"></div>
-    <form method="post" action="/questions/<%= @question.id %>/votes" class="up-vote">
-      <input type="hidden" name="value" value="1">
-      <input type="submit" value="Upvote">
-    </form>
 
-    <form method="post" action="/questions/<%= @question.id %>/votes" class="down-vote">
-      <input type="hidden" name="value" value="-1">
-      <input type="submit" value="Downvote">
-    </form>
 
-  </div>
-<% end %>
+      <form method="post" action="/questions/<%= @question.id %>/votes" class="down-vote">
+        <input type="hidden" name="value" value="-1">
+        <button type="submit" value="Downvote"><i class="fa fa-arrow-down"></i></button>
+      </form>
+    </div>
+  <% end %>
+
   <h2 id="<%= @question.id %>">Question: <%= @question.title %></h2>
-  <p>posted by: <%= @question.user.username %></p>
+  <p>Total votes: <%= @question.vote_count %></p>
+  <p class="question-details">username: <%= @question.user.username %></p>
   <p><%= @question.body %></p>
 
   <div class="comment-list">
-    <h4>Comments:</h4>
     <ul><% @question.comments.each do |comment| %>
       <li class="comment"><%= comment.body %>
-        <p>Comment by: <%= comment.user.username %></p>
+        <p class="comment-details">username: <%= comment.user.username %></p>
       </li>
       <% end %>
     </ul>

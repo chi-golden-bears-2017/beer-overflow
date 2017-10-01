@@ -150,7 +150,7 @@ var bestAnswer = function(event) {
     $this.hide();
     console.log($(".best-answer"))
     $(".best-answer").remove();
-    $this.closest("p").append("<p class='best-answer'>Best Answer Badge</p>");
+    $this.closest("p").append("<i class='fa fa-star' aria-hidden='true'></i>");
   })
 };
 
