@@ -34,6 +34,7 @@ h1 a{
   font-family: 'Permanent Marker', cursive;
   text-decoration: none;
   font-size: 2em;
+  display: inline-block;
 }
 h2 {
   font-family: 'Ubuntu', sans-serif;
@@ -156,18 +157,27 @@ form.down-vote button {
 }
 
 #question.vote-buttons {
-  display: inline-block;
+  /*display: inline-block;*/
 }
 
 .answer.vote-buttons {
   display: inline-block;
 }
 
+.please {
+  border: 1px solid #EDA503;
+  border-radius: 16px;
+}
+
+#border {
+  border: 2px solid black;
+  border-radius: 16px;
+}
+
 #please h2 {
   width: 70%;
   display: inline-block;
 }
-
 
 .new-comment-form input {
   display: inline-block;

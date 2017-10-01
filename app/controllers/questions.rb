@@ -8,6 +8,7 @@ get '/questions/new' do
   erb :'questions/new'
 end
 
+
 post '/questions/new' do
   authenticate!
   @question = Question.create(
@@ -17,7 +18,26 @@ post '/questions/new' do
   redirect "/"
 end
 
+get '/questions/:id/edit' do
+  @question = Question.find(params[:id])
+  @user = @question.user
+  authenticate!
+  authorize!(@user)
+  erb :'questions/edit'
+end
+
+post '/questions/:id/edit' do
+  @question = Question.find(params[:id])
+  @user = @question.user
+  authenticate!
+  authorize!(@user)
+  p params
+  @question.update(params[:question])
+  redirect "/questions/#{@question.id}"
+end
+
 get '/questions/:id' do
+  @answer = Answer.new
   @question = Question.find(params[:id])
   erb :'questions/show'
 end

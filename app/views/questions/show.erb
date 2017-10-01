@@ -1,4 +1,6 @@
 <div id="please">
+  <div id="border">
+  <h2 id="<%= @question.id %>">Question: <%= @question.title %></h2>
 
   <% if logged_in? %>
     <div class="vote-buttons" id="question">
@@ -10,7 +12,6 @@
 
 <p class="vote-count">Total votes: <%= @question.vote_count %></p>
 
-
       <form method="post" action="/questions/<%= @question.id %>/votes" class="down-vote">
         <input type="hidden" name="value" value="-1">
         <button type="submit" value="Downvote"><i class="fa fa-arrow-down"></i></button>
@@ -18,10 +19,13 @@
     </div>
   <% end %>
 
-  <h2 id="<%= @question.id %>">Question: <%= @question.title %></h2>
-  <p>Total votes: <%= @question.vote_count %></p>
+
   <p class="question-details">username: <%= @question.user.username %></p>
   <p><%= @question.body %></p>
+
+  <% if logged_in?  && authorized?(@question.user) %>
+    <a href="/questions/<%= @question.id %>/edit">edit</a>
+  <% end %>
 
   <div class="comment-list">
     <ul><% @question.comments.each do |comment| %>
@@ -37,7 +41,7 @@
       </form>
     <% end %>
   </div>
-
+</div>
 <div id="answer-list">
   <% @question.answers.each do |answer| %>
     <%= erb :"partials/_new_answer", locals: {answer: answer} %>

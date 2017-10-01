@@ -106,7 +106,7 @@ var voteHandler = function(event) {
   }
 
   var data;
-  if (form.attr('class') === "up-vote"){
+  if (form.attr('class') === "up-vote" || form.attr('class') === "up-vote answer-vote"){
     data = {value: 1}
   } else {
     data = {value: -1}
@@ -120,7 +120,7 @@ var voteHandler = function(event) {
 
   ajaxPromise.done(function(response) {
     var new_total = "Total votes: " + response
-    var $voteCount = $ballot_box.closest('div#please').find('p.vote-count')
+    var $voteCount = $ballot_box.closest('div.vote-buttons').find('p.vote-count');
     $voteCount.text(new_total)
   });
 
@@ -148,11 +148,8 @@ var bestAnswer = function(event) {
   ajaxPromise.done(function(response) {
     $(".best").show();
     $this.hide();
-    console.log($(".best-answer"))
     $(".best-answer").remove();
-    $this.closest("p").append("<i class='fa fa-star' aria-hidden='true'></i>");
+    $this.closest("p").append("<i class='fa fa-star best-answer' aria-hidden='true'></i>");
   })
 };
-
-// (visible to all users)
 
