@@ -167,11 +167,15 @@ form.down-vote button {
 .please {
   border: 1px solid #EDA503;
   border-radius: 16px;
+  padding: 40px;
+  margin: 20px;
 }
 
 #border {
   border: 2px solid black;
   border-radius: 16px;
+  padding: 40px;
+  margin: 20px;
 }
 
 #please h2 {
@@ -191,6 +195,7 @@ form.down-vote button {
   margin: 20px 0;
   display: block;
   outline: 0;
+  border:none;
 }
 
 #new-answer textarea {
@@ -210,6 +215,8 @@ form.down-vote button {
   margin: 20px 0;
   display: block;
   outline: 0;
+  border:none;
+
 }
 
 p.answer {
