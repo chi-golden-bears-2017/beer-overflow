@@ -1,0 +1,6 @@
+<% if logged_in? %>
+  <form action="/comments/<%= comment.id %>/edit" method="post" class="new-comment-form">
+    <%= erb :'partials/_add_comment', layout: false, locals: {comment: comment} %>
+  </form>
+<% end %>
+

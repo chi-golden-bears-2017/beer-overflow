@@ -28,8 +28,14 @@ var answerHandler = function(event) {
   }
 
   request.done(function(response) {
+    console.log(response)
     $("#answer-list").append(response)
   })
+
+  request.fail(function(error) {
+    console.log(error)
+  });
+
     $("#new-answer").trigger("reset")
     $(".new-comment-form").trigger("reset")
 };
@@ -54,7 +60,7 @@ var newCommentHandler = function(event) {
   }
 
   request.done(function(response) {
-    $this.closest(".comment-list").find("ul").append("<li class='comment'>" + response.body + "<p>Comment by: " + response.username + "</p></li>")
+    $this.closest(".comment-list").find("ul").append("<li class='comment'>" + response.body + "<p>Comment by: " + response.username + "</p><a href='/comments/" + response.id + "/edit'>edit</a></li>")
   })
 
   $(".new-comment-form").trigger("reset")
@@ -106,7 +112,7 @@ var voteHandler = function(event) {
   }
 
   var data;
-  if (form.attr('class') === "up-vote"){
+  if (form.attr('class') === "up-vote" || form.attr('class') === "up-vote answer-vote"){
     data = {value: 1}
   } else {
     data = {value: -1}
@@ -120,7 +126,7 @@ var voteHandler = function(event) {
 
   ajaxPromise.done(function(response) {
     var new_total = "Total votes: " + response
-    var $voteCount = $ballot_box.closest('div#please').find('p.vote-count')
+    var $voteCount = $ballot_box.closest('div.vote-buttons').find('p.vote-count');
     $voteCount.text(new_total)
   });
 
@@ -148,11 +154,8 @@ var bestAnswer = function(event) {
   ajaxPromise.done(function(response) {
     $(".best").show();
     $this.hide();
-    console.log($(".best-answer"))
     $(".best-answer").remove();
-    $this.closest("p").append("<i class='fa fa-star' aria-hidden='true'></i>");
+    $this.closest("p").append("<i class='fa fa-star best-answer' aria-hidden='true'></i>");
   })
 };
-
-// (visible to all users)
 

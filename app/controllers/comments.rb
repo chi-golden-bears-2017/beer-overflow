@@ -11,16 +11,39 @@ end
 post '/questions/:id/comments/new' do
   @question = Question.find(params[:id])
    comment = Comment.new(body: params[:body], user_id: current_user.id, commentable: @question)
+   @answer = Answer.new
 
   if comment.save
     if request.xhr?
       content_type :json
       {body: comment.body, username: current_user.username}.to_json
     else
-      erb :"questions/show"
+      erb :"questions/show", locals: {comment: comment}
     end
   else
     @error = "Something went wrong"
+  end
+end
+
+get '/comments/:id/edit' do
+  comment = Comment.find(params[:id])
+  @user = comment.user
+  authenticate!
+  authorize!(@user)
+  erb :'comments/edit', locals: {comment: comment}
+end
+
+post '/comments/:id/edit' do
+  @comment = Comment.find(params[:id])
+  @user = @comment.user
+  authenticate!
+  authorize!(@user)
+  p params
+  @comment.update(body: params[:body])
+  if @comment.commentable_type == "Question"
+    redirect "/questions/#{@comment.commentable.id}"
+  else
+    redirect "/questions/#{@comment.commentable.question.id}"
   end
 end
 
@@ -31,7 +54,7 @@ post '/answers/:id/comments/new' do
   if comment.save
     if request.xhr?
       content_type :json
-      {body: comment.body, username: current_user.username}.to_json
+      {body: comment.body, username: current_user.username, id: comment.id}.to_json
     else
       erb :"questions/show"
     end

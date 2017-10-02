@@ -1,10 +1,17 @@
 <div class="please">
+  <p class="answer"><strong>Answer:</strong> <%= answer.body %></p>
+  <p class="answer-username">Answer by: <%= answer.user.username %></p>
+  <% if logged_in?  && authorized?(answer.user) %>
+    <a href="/answers/<%= answer.id %>/edit">edit</a>
+  <% end %>
+
     <% if logged_in? %>
       <div class="vote-buttons" id="<%= answer.id %>">
         <form method="post" action="/answers/<%= answer.id %>/votes" class="up-vote answer-vote" >
           <input type="hidden" name="value" value="1">
           <button type="submit" value="Upvote" ><i class="fa fa-arrow-up"></i></button>
         </form>
+  <p class="vote-count">Total votes: <%= answer.vote_count %></p>
         <form method="post" action="/answers/<%= answer.id %>/votes" class="down-vote answer-vote">
           <input type="hidden" name="value" value="-1">
           <button type="submit" value="Downvote" ><i class="fa fa-arrow-down"></i></button>
@@ -13,8 +20,6 @@
       </div>
     <% end %>
 
-  <p class="answer"><%= answer.body %></p>
-  <p class="vote-count">Total votes: <%= answer.vote_count %></p>
   <p class="best-answer">
       <% if answer == answer.question.best_answer %>
           <i class="fa fa-star" aria-hidden="true"></i>
@@ -22,11 +27,12 @@
   </p>
   <p>
 
-  <% if logged_in? && current_user == answer.question.user %>
+  <% if logged_in? && current_user == answer.question.user && answer != answer.question.best_answer %>
     <button class="best" id="<%= answer.id %>">Best Answer!</button>
+  <% elsif logged_in? && current_user == answer.question.user %>
+    <button hidden="true" class="best" id="<%= answer.id %>">Best Answer!</button>
   <% end %>
   </p>
-  <p class="answer-username">Answer by: <%= answer.user.username %></p>
 
    <div class="comment-list">
      <ul>
@@ -34,12 +40,16 @@
           <li class="comment">
             <%= comment.body %>
             <p class="comment-details">username: <%= comment.user.username %></p>
+            <% if logged_in?  && authorized?(comment.user) %>
+            <a href="/comments/<%= comment.id %>/edit">edit</a>
+            <% end %>
           </li>
         <% end %>
      </ul>
    <% if logged_in? %>
       <form action="/answers/<%= answer.id %>/comments/new" method="post" class="new-comment-form">
-         <%= erb :'partials/_add_comment' %>
+         <% comment = comment || Comment.new %>
+         <%= erb :'partials/_add_comment', locals: {comment: comment} %>
       </form>
     <% end %>
    </div>

@@ -1,0 +1,7 @@
+  <div>
+    <% if logged_in? %>
+    <form class="edit-answer" action="/answers/<%= @answer.id %>/edit" method="post">
+      <%= erb :'partials/_answer_form', locals: {answer: @answer}, layout: false %>
+    </form>
+    <% end %>
+  </div>
